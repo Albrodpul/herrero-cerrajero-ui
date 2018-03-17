@@ -1,0 +1,54 @@
+<html ng-app="herreroApp">
+
+<head>
+  <title>Herrero Cerrajero</title>
+  <base href="/">
+  <!-- Viewport settings-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- Basic style -->
+  <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- BOWER COMPONENTS -->
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bower_components/materialize/dist/js/materialize.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="bower_components/angular-materialize/src/angular-materialize.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="bower_components/auth0.js/build/auth0.js"></script>
+  <script type="text/javascript" src="bower_components/angular-auth0/dist/angular-auth0.js"></script>
+
+  <!-- APP INIT -->
+  <script type="text/javascript" src="./app/app.js"></script>
+  <script type="text/javascript" src="./app/app.run.js"></script>
+
+  <!-- SERVICES -->
+  <script type="text/javascript" src="./app/services/ui/auth.service.js"></script>
+
+  <!-- DIRECTIVES -->
+  <script type="text/javascript" src="./app/directives/navbar/navbar.directive.js"></script>
+
+  <!-- CONTROLLER -->
+  <script type="text/javascript" src="./app/states/home/home.controller.js"></script>
+  <script type="text/javascript" src="./app/states/login/login.controller.js"></script>
+  <script type="text/javascript" src="./app/states/callback/callback.controller.js"></script>
+
+</head>
+
+<body class="container">
+  <div>
+
+    <navbar></navbar>
+
+    <div class="container">
+      <ui-view></ui-view>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

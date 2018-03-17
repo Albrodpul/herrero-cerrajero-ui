@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="input-field col s12">
+        <div class="row" ng-show="!isAuthenticated">
+            <h3 class="header col s12 light">Inicie sesión para acceder al servicio</h3>
+            <p>Puede registrarse o usar cuentas sociales.</p>
+            <button class="waves-effect waves-light btn #90caf9 blue lighten-3" ng-click="vm.auth.login()">Iniciar sesión</button>
+        </div>
+        <div class="row" ng-show="isAuthenticated">
+            <h3 class="header col s12 light">Cerrar sesión</h3>
+            <p>Puede cerrar su sesión pulsando el botón de abajo.</p>
+            <button class="waves-effect waves-light btn #90caf9 blue lighten-3" ng-click="vm.auth.logout()">Cerrar sesión</button>
+        </div>
+    </div>
+</div>
