@@ -14,3 +14,30 @@
 a {
   cursor: pointer;
 }
+
+.herrero-azul{
+  background-color: #008cff !important;
+}
+
+.herrero-azul-text{
+  color: #008cff !important;
+}
+
+.tabs{
+  cursor: pointer;
+}
+
+.tabs li {
+  border-bottom: 2px solid #008cff;
+}
+
+.tabs .tab a.active {
+  z-index: 1;
+  position: relative;
+} 
+
+.tabs .indicator{
+  border-top: 500px solid #eee;
+  border-bottom: 2px solid #008cff;
+  opacity: 1;
+}

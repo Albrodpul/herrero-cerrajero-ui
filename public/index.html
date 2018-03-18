@@ -20,6 +20,9 @@
   <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
   <script type="text/javascript" src="bower_components/auth0.js/build/auth0.js"></script>
   <script type="text/javascript" src="bower_components/angular-auth0/dist/angular-auth0.js"></script>
+  <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+
+  <script src="./js/init.js"></script>
 
   <!-- APP INIT -->
   <script type="text/javascript" src="./app/app.js"></script>
@@ -27,6 +30,9 @@
 
   <!-- SERVICES -->
   <script type="text/javascript" src="./app/services/ui/auth.service.js"></script>
+  <script type="text/javascript" src="./app/services/ui/ibanValidator.service.js"></script>
+  <script type="text/javascript" src="./app/services/ui/dniValidator.service.js"></script>
+  <script type="text/javascript" src="./app/services/data/ncuentas.service.js"></script>
 
   <!-- DIRECTIVES -->
   <script type="text/javascript" src="./app/directives/navbar/navbar.directive.js"></script>
@@ -35,15 +41,18 @@
   <script type="text/javascript" src="./app/states/home/home.controller.js"></script>
   <script type="text/javascript" src="./app/states/login/login.controller.js"></script>
   <script type="text/javascript" src="./app/states/callback/callback.controller.js"></script>
+  <script type="text/javascript" src="./app/states/ncuentas/ncuentas.controller.js"></script>
+
+  
 
 </head>
 
-<body class="container">
+<body style="width:90%;margin-left:5%;">
   <div>
 
     <navbar></navbar>
 
-    <div class="container">
+    <div>
       <ui-view></ui-view>
     </div>
 

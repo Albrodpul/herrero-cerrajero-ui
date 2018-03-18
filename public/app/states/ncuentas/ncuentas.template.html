@@ -1,0 +1,232 @@
+<head>
+    <script type="text/javascript" src="./js/init.js"></script>
+</head>
+<div class="row">
+    <a ui-sref="home" class="btn waves-effect waves-light #2196f3 blue">
+        Volver atrás
+    </a>
+</div>
+
+<!-- Success message -->
+<div class="row" ng-if="success" style="margin-top: -10px;">
+    <div class="col s12 center-align">
+        <div class="card-panel #a5d6a7 green lighten-3">
+            <span class="back-text">{{success}}</span>
+        </div>
+    </div>
+</div>
+<!-- Tabs -->
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6">
+                <a id="cuentasList" class="header light active herrero-azul-text" ng-click="cuentasList()" style="text-transform:initial;">
+                    <h5>Números de cuenta</h5>
+                </a>
+            </li>
+            <li class="tab col s6">
+                <a class="header light herrero-azul-text" ng-click="nuevaCuenta()" style="text-transform:initial;">
+                    <h5>Añadir número de cuenta</h5>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br />
+
+<!-- New Group Tab -->
+<div ng-if="nuevaCuentaAux" class="col s12">
+    <table class="table bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    Administrador
+                </th>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    Dirección
+                </th>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    Iban
+                </th>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    NIF
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" ng-model="administrador" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="direccion" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="iban" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="nif" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <div class="row">
+        <button class="btn waves-effect waves-light col s3 #0d47a1 blue darken-4" style="margin-left:2%;" ng-click="addCuenta(administrador,direccion,iban,nif)">
+            Añadir número
+        </button>
+        <button class="btn waves-effect waves-light col s3 #bbdefb blue lighten-3" style="margin-left:2%;" ng-click="cancel()">
+            Cancelar
+        </button>
+    </div>
+    <!-- Error message -->
+    <div class="row" ng-if="error" style="margin-top: 4.1rem">
+        <div class="col s12 center-align">
+            <div class="card-panel #f44336 red">
+                <span class="back-text">{{error}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cuentas List Tab -->
+<div ng-if="cuentasListAux">
+    <div class="row">
+        <form class="form-inline col s4">
+            <div class="form-group input-field">
+                <input id="search" type="text" ng-model="search" class="form-control">
+                <label for="search">Buscar administrador, dirección o referencia</label>
+            </div>
+        </form>
+    </div>
+    <br />
+    <div ng-hide="!cuentasTable">
+        <table class="table highlight bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Administrador
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Dirección
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Iban
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        NIF
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Referencia
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate-start="cuenta in cuentas | filter:search | orderBy: 'idAdmin'  | itemsPerPage: 10 track by $index" dir-paginate-end>
+                    <td style="text-align: center;width: 15%;">
+                        {{cuenta.idAdmin}}
+                    </td>
+                    <td style="text-align: center;width: 20%;">
+                        {{cuenta.direccion}}
+                    </td>
+                    <td style="text-align: center;width: 18%;">
+                        {{cuenta.iban}}
+                    </td>
+                    <td style="text-align: center;width: 5%;">
+                        {{cuenta.nif}}
+                    </td>
+                    <td style="text-align: center;width: 8%;">
+                        {{cuenta.referencia}}
+                    </td>
+                    <td style="text-align: center;width: 20%;">
+                        <a class="btn waves-effect waves-light #9c27b0 purple" href="#edit" ng-click="edit1(cuenta.idAdmin,cuenta.direccion,cuenta.iban,cuenta.nif,cuenta.referencia)">
+                            Modificar
+                        </a>
+                        <button class="btn waves-effect waves-light #f44336 red" ng-click="delete(cuenta.idAdmin,cuenta.direccion)">
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="row">
+            <div class="col s12 m6 center">
+                <dir-pagination-controls max-size="50" class="right" direction-links="true" boundary-links="true">
+
+                </dir-pagination-controls>
+            </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="edit" class="modal" style="width:80%;">
+            <div class="modal-content">
+                <table class="table bordered">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;" class="herrero-azul-text">
+                                Administrador
+                            </th>
+                            <th style="text-align: center;" class="herrero-azul-text">
+                                Dirección
+                            </th>
+                            <th style="text-align: center;" class="herrero-azul-text">
+                                Iban
+                            </th>
+                            <th style="text-align: center;" class="herrero-azul-text">
+                                NIF
+                            </th>
+                            <th style="text-align: center;" class="herrero-azul-text">
+                                Referencia
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" ng-model="updatedAdmin" readonly />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="updatedDireccion" readonly />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="updatedIban" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="updatedNif" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="updatedReferencia" readonly />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer row">
+                <a class="modal-action modal-close btn waves-effect waves-light #f44336 red left" style="margin-left: 3%;">
+                    <i class="material-icons" style="vertical-align: middle !important">close</i> Cancelar
+                </a>
+                <a class="modal-action btn waves-effect waves-light #388e3c green darken-2 right" style="margin-right: 3%;" ng-click="edit2(updatedAdmin,updatedDireccion,updatedIban,updatedNif,updatedReferencia)">
+                    <i class="material-icons" style="vertical-align: middle !important">done</i> Actualizar
+                </a>
+            </div>
+            <!-- Error message -->
+            <div class="row" ng-if="error2">
+                <div class="col s12 center-align">
+                    <div class="card-panel #f44336 red">
+                        <span class="back-text">{{error2}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                // the "href" attribute of .modal-trigger must specify the modal ID that   wants to be triggered
+                $('#edit').modal();
+            });
+        </script>
+    </div>
+</div>
