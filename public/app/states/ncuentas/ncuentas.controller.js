@@ -27,7 +27,9 @@
 
     var refresh = function () {
       $scope.error = null;
-      angular.element("input[type='text']").val(null);
+      $scope.referenciaCheck1 = true;
+      $scope.referenciaCheck2 = false;
+      $scope.reference = "Con referencia";
       nCuentasService.getCuentas()
         .then(data => {
           console.log("Refreshing...");
@@ -65,7 +67,7 @@
       }
     }
 
-    $scope.addCuenta = function (administrador, direccion, iban, nif) {
+    $scope.addCuenta = function (administrador, direccion, iban, nif, referenciaCheck1) {
       if (!administrador) {
         $scope.error = "Falta el campo administrador por rellenar";
         $scope.success = null;
@@ -86,39 +88,63 @@
         $scope.success = null;
       } else {
         $scope.error = null;
-        nCuentasService.getCuentaLast()
-          .then(data => {
-            var referencia;
-            var aux = data.referencia;
-            var letters = /[a-zA-Z]/g;
-            var count = (aux.match(letters) || []).length;
-            console.log(aux);
-            if (count == 10) {
-              aux = parseInt(aux.substring(10, aux.length)) + 1;
-            } else {
-              aux = parseInt(aux.substring(9, aux.length)) + 1;
-            }
-            console.log(aux);
-            if (aux < 100) {
-              referencia = "Referencia" + aux.toString();
-            } else {
-              referencia = "Referenci" + aux.toString();
-            }
-            var json = '{"idAdmin":"' + administrador + '", "direccion":"' + direccion + '","iban":"' + iban + '","nif":"' + nif + '","referencia":"' + referencia + '"}';
-            console.log(json);
-            nCuentasService.insertCuenta(json)
-              .then(response => {
-                refresh();
-                $scope.success = response.message;
-                $timeout(function () {
-                  $scope.success = null;
-                }, 5000);
-              }, err => {
-                $scope.error = err.message;
-              });
-          });
+        if (referenciaCheck1) {
+          nCuentasService.getCuentaLast()
+            .then(data => {
+              var referencia;
+              var aux = data.referencia;
+              var letters = /[a-zA-Z]/g;
+              var count = (aux.match(letters) || []).length;
+              console.log(aux);
+              if (count == 10) {
+                aux = parseInt(aux.substring(10, aux.length)) + 1;
+              } else {
+                aux = parseInt(aux.substring(9, aux.length)) + 1;
+              }
+              console.log(aux);
+              if (aux < 100) {
+                referencia = "Referencia" + aux.toString();
+              } else {
+                referencia = "Referenci" + aux.toString();
+              }
+              var json = '{"idAdmin":"' + administrador + '", "direccion":"' + direccion + '","iban":"' + iban + '","nif":"' + nif + '","referencia":"' + referencia + '"}';
+              console.log(json);
+              nCuentasService.insertCuenta(json)
+                .then(response => {
+                  refresh();
+                  $scope.success = response.message;
+                  $timeout(function () {
+                    $scope.success = null;
+                  }, 5000);
+                }, err => {
+                  $scope.error = err.message;
+                });
+            });
+        } else {
+          var json = '{"idAdmin":"' + administrador + '", "direccion":"' + direccion + '","iban":"' + iban + '","nif":"' + nif + '","referencia":""}';
+          console.log(json);
+          nCuentasService.insertCuenta(json)
+            .then(response => {
+              refresh();
+              $scope.success = response.message;
+              $timeout(function () {
+                $scope.success = null;
+              }, 5000);
+            }, err => {
+              $scope.error = err.message;
+            });
+        }
       }
     }
+
+    $scope.checkReferencia1 = function (referenciaCheck1) {
+      if (referenciaCheck1 == true) {
+        $scope.reference = "Con referencia";
+      } else {
+        $scope.reference = "Sin referencia";
+      }
+    }
+
 
     $scope.delete = function (administrador, direccion) {
       var deleteCuenta = window.confirm("¿Está seguro que desea borrar el grupo?");

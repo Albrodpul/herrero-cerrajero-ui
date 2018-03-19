@@ -22,7 +22,5 @@
             $('ul.tabs').tabs();
         });
 
-        $('#modal1').modal().modal('open');
-
     }); // end of document ready
 })(jQuery); // end of jQuery name space

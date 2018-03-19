@@ -52,6 +52,9 @@
                 <th style="text-align: center;" class="herrero-azul-text">
                     NIF
                 </th>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    ¿Referencia?
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -68,16 +71,21 @@
                 <td>
                     <input type="text" class="form-control" ng-model="nif" />
                 </td>
+                <td style="text-align: center;width:16%;">
+                    <input type="checkbox" class="filled-in" id="filled-in-box" ng-checked="true" ng-true-value="true" ng-false-value="false"
+                        ng-model="referenciaCheck1" ng-change="checkReferencia1(referenciaCheck1)" />
+                    <label for="filled-in-box">{{reference}}</label>
+                </td>
             </tr>
         </tbody>
     </table>
     <br />
     <div class="row">
-        <button class="btn waves-effect waves-light col s3 #0d47a1 blue darken-4" style="margin-left:2%;" ng-click="addCuenta(administrador,direccion,iban,nif)">
-            Añadir número
+        <button class="btn waves-effect waves-light #f44336 red col s3" style="margin-left:2%;" ng-click="cancel()">
+            <i class="material-icons" style="vertical-align: middle !important">close</i> Cancelar
         </button>
-        <button class="btn waves-effect waves-light col s3 #bbdefb blue lighten-3" style="margin-left:2%;" ng-click="cancel()">
-            Cancelar
+        <button class="btn waves-effect waves-light #388e3c green darken-2 col s3 offset-s5" style="margin-right:-10%;" ng-click="addCuenta(administrador,direccion,iban,nif,check)">
+            <i class="material-icons" style="vertical-align: middle !important">done</i> Añadir número
         </button>
     </div>
     <!-- Error message -->
@@ -155,8 +163,8 @@
         </table>
         <br />
         <div class="row">
-            <div class="col s12 m6 center">
-                <dir-pagination-controls max-size="50" class="right" direction-links="true" boundary-links="true">
+            <div class="col s7 offset-s5">
+                <dir-pagination-controls max-size="50" class="herrero-azul" direction-links="true" boundary-links="true">
 
                 </dir-pagination-controls>
             </div>
@@ -179,7 +187,7 @@
                             <th style="text-align: center;" class="herrero-azul-text">
                                 NIF
                             </th>
-                            <th style="text-align: center;" class="herrero-azul-text">
+                            <th style="text-align: center;" class="herrero-azul-text" colspan="2">
                                 Referencia
                             </th>
                         </tr>
@@ -199,7 +207,11 @@
                                 <input type="text" class="form-control" ng-model="updatedNif" />
                             </td>
                             <td>
-                                <input type="text" class="form-control" ng-model="updatedReferencia" readonly />
+                                <input type="text" class="form-control" ng-model="updatedReferencia" ng-disabled="!referenciaCheck2" />
+                            </td>
+                            <td>
+                                <input type="checkbox" class="filled-in" id="filled-in-box" ng-checked="false" ng-true-value="true" ng-false-value="false" ng-model="referenciaCheck2" />
+                                <label for="filled-in-box"></label>
                             </td>
                         </tr>
                     </tbody>
