@@ -56,7 +56,13 @@
         controller: 'nCuentasController',
         templateUrl: 'app/states/ncuentas/ncuentas.template.html',
         controllerAs: 'vm'
-      });
+      })
+      .state('facturas', {
+        url: '/facturas',
+        controller: 'facturasController',
+        templateUrl: 'app/states/facturas/facturas.template.html',
+        controllerAs: 'vm'
+      });      
 
     // Initialization for the angular-auth0 library
     angularAuth0Provider.init({

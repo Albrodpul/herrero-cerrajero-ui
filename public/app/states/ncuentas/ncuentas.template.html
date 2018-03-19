@@ -35,7 +35,7 @@
 </div>
 <br />
 
-<!-- New Group Tab -->
+<!-- Nueva cuenta Tab -->
 <div ng-if="nuevaCuentaAux" class="col s12">
     <table class="table bordered">
         <thead>
@@ -60,16 +60,16 @@
         <tbody>
             <tr>
                 <td>
-                    <input type="text" class="form-control" ng-model="administrador" />
+                    <input type="text" class="form-control" id="text" ng-model="administrador" />
                 </td>
                 <td>
-                    <input type="text" class="form-control" ng-model="direccion" />
+                    <input type="text" class="form-control" id="text" ng-model="direccion" />
                 </td>
                 <td>
-                    <input type="text" class="form-control" ng-model="iban" />
+                    <input type="text" class="form-control" id="text" ng-model="iban" />
                 </td>
                 <td>
-                    <input type="text" class="form-control" ng-model="nif" />
+                    <input type="text" class="form-control" id="text" ng-model="nif" />
                 </td>
                 <td style="text-align: center;width:16%;">
                     <input type="checkbox" class="filled-in" id="filled-in-box" ng-checked="true" ng-true-value="true" ng-false-value="false"
@@ -210,7 +210,8 @@
                                 <input type="text" class="form-control" ng-model="updatedReferencia" ng-disabled="!referenciaCheck2" />
                             </td>
                             <td>
-                                <input type="checkbox" class="filled-in" id="filled-in-box" ng-checked="false" ng-true-value="true" ng-false-value="false" ng-model="referenciaCheck2" />
+                                <input type="checkbox" class="filled-in" id="filled-in-box" ng-checked="false" ng-true-value="true" ng-false-value="false"
+                                    ng-model="referenciaCheck2" />
                                 <label for="filled-in-box"></label>
                             </td>
                         </tr>

@@ -30,6 +30,7 @@
       $scope.referenciaCheck1 = true;
       $scope.referenciaCheck2 = false;
       $scope.reference = "Con referencia";
+      angular.element("input[id='text']").val(null);
       nCuentasService.getCuentas()
         .then(data => {
           console.log("Refreshing...");
@@ -63,7 +64,7 @@
       var cancelCuenta = window.confirm("¿Está seguro que desea cancelar la creación del número de cuenta?");
       if (cancelCuenta) {
         delete $scope.error;
-        angular.element("input[type='text']").val(null);
+        angular.element("input[id='text']").val(null);
       }
     }
 
@@ -160,6 +161,7 @@
       }
     }
 
+
     $scope.edit1 = function (administrador, direccion, iban, nif, referencia) {
       $scope.updatedAdmin = administrador;
       $scope.updatedDireccion = direccion;
@@ -199,6 +201,8 @@
           });
       }
     }
+
+
   }
 
 })();

@@ -1,0 +1,224 @@
+<head>
+    <script type="text/javascript" src="./js/init.js"></script>
+</head>
+<div class="row">
+    <a ui-sref="home" class="btn waves-effect waves-light #2196f3 blue">
+        Volver atrás
+    </a>
+</div>
+
+<!-- Success message -->
+<div class="row" ng-if="success" style="margin-top: -10px;">
+    <div class="col s12 center-align">
+        <div class="card-panel #a5d6a7 green lighten-3">
+            <span class="back-text">{{success}}</span>
+        </div>
+    </div>
+</div>
+<!-- Tabs -->
+
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6">
+                <a id="facturasList" class="header light active herrero-azul-text" ng-click="facturasList()" style="text-transform:initial;">
+                    <h5>Lista de facturas</h5>
+                </a>
+            </li>
+            <li class="tab col s6">
+                <a class="header light herrero-azul-text" ng-click="nuevaFactura()" style="text-transform:initial;">
+                    <h5>Añadir factura</h5>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br />
+
+<!-- Nueva factura Tab -->
+<div ng-if="nuevaFacturaAux" class="col s12">
+    <table class="table bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    Administrador
+                </th>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    Dirección
+                </th>
+                <th style="text-align: center;" class="herrero-azul-text">
+                    Número de factura
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" id="text" ng-model="administrador" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="text" ng-model="direccion" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="text" ng-model="numero" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <div class="row">
+        <button class="btn waves-effect waves-light #f44336 red col s3" style="margin-left:2%;" ng-click="cancel()">
+            <i class="material-icons" style="vertical-align: middle !important">close</i> Cancelar
+        </button>
+        <button class="btn waves-effect waves-light #388e3c green darken-2 col s3 offset-s5" style="margin-right:-10%;" ng-click="addFactura(administrador,direccion,numero)">
+            <i class="material-icons" style="vertical-align: middle !important">done</i> Añadir factura
+        </button>
+    </div>
+    <!-- Error message -->
+    <div class="row" ng-if="error" style="margin-top: 4.1rem">
+        <div class="col s12 center-align">
+            <div class="card-panel #f44336 red">
+                <span class="back-text">{{error}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Facturas List Tab -->
+<div ng-if="facturasListAux">
+    <div class="row">
+        <form class="form-inline col s4">
+            <div class="form-group input-field">
+                <input id="search" type="text" ng-model="search" class="form-control">
+                <label for="search">Buscar administrador, dirección o número de factura</label>
+            </div>
+        </form>
+    </div>
+    <br />
+    <div ng-hide="!facturasTable">
+        <table class="table highlight bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Fecha
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Administrador
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Dirección
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Número de factura
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Estado
+                    </th>
+                    <th style="text-align: center;" class="herrero-azul-text">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate-start="factura in facturas | filter:search | orderBy: 'numero'  | itemsPerPage: 10 track by $index" dir-paginate-end>
+                    <td style="text-align: center;width: 7%;">
+                        {{factura.fecha}}
+                    </td>
+                    <td style="text-align: center;width: 15%;">
+                        {{factura.idAdmin}}
+                    </td>
+                    <td style="text-align: center;width: 20%;">
+                        {{factura.direccion}}
+                    </td>
+                    <td style="text-align: center;width: 10%;">
+                        {{factura.numero}}
+                    </td>
+                    <td style="text-align: center;width: 15%;">
+                        {{factura.estado}}
+                    </td>
+                    <td style="text-align: center;width: 20%;">
+                        <a class="btn waves-effect waves-light #9c27b0 purple" href="#edit" ng-click="edit1(factura.fecha, factura.idAdmin,factura.direccion,factura.numero,factura.estado)">
+                            Modificar
+                        </a>
+                        <button class="btn waves-effect waves-light #f44336 red" ng-click="delete(factura.numero)">
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="row">
+            <div class="col s7 offset-s5">
+                <dir-pagination-controls max-size="50" class="herrero-azul" direction-links="true" boundary-links="true">
+
+                </dir-pagination-controls>
+            </div>
+            <!-- Modal Structure -->
+            <div id="edit" class="modal" style="width:80%;height:300px;">
+                <div class="modal-content">
+                    <table class="table bordered">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;" class="herrero-azul-text">
+                                    Administrador
+                                </th>
+                                <th style="text-align: center;" class="herrero-azul-text">
+                                    Dirección
+                                </th>
+                                <th style="text-align: center;" class="herrero-azul-text">
+                                    Número de factura
+                                </th>
+                                <th style="text-align: center;" class="herrero-azul-text">
+                                    Estado
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 20%;">
+                                    <input type="text" class="form-control" ng-model="updatedAdmin" readonly />
+                                </td>
+                                <td style="width: 20%;">
+                                    <input type="text" class="form-control" ng-model="updatedDireccion" readonly />
+                                </td>
+                                <td style="width: 10%;">
+                                    <input type="text" class="form-control" ng-model="updatedNumero" />
+                                </td>
+                                <td style="width: 20%;">
+                                    <select material-select watch ng-model="updatedEstado">
+                                        <option value="Factura enviada, remesa no enviada">Factura enviada, remesa no enviada</option>
+                                        <option value="Factura enviada, remesa enviada">Factura enviada, remesa enviada</option>
+                                        <option value="Pendiente de cobro">Pendiente de cobro</option>
+                                        <option value="Factura cobrada">Factura cobrada</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer row">
+                    <a class="modal-action modal-close btn waves-effect waves-light #f44336 red left" style="margin-left: 3%;">
+                        <i class="material-icons" style="vertical-align: middle !important">close</i> Cancelar
+                    </a>
+                    <a class="modal-action btn waves-effect waves-light #388e3c green darken-2 right" style="margin-right: 3%;" ng-click="edit2(updatedAdmin,updatedDireccion,updatedNumero,updatedEstado)">
+                        <i class="material-icons" style="vertical-align: middle !important">done</i> Actualizar
+                    </a>
+                </div>
+                <!-- Error message -->
+                <div class="row" ng-if="error2">
+                    <div class="col s12 center-align">
+                        <div class="card-panel #f44336 red">
+                            <span class="back-text">{{error2}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    // the "href" attribute of .modal-trigger must specify the modal ID that   wants to be triggered
+                    $('#edit').modal();
+                });
+            </script>
+        </div>
+    </div>
