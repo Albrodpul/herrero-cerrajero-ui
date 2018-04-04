@@ -99,20 +99,36 @@
         <table class="table highlight bordered">
             <thead>
                 <tr>
-                    <th style="text-align: center;" class="herrero-azul-text">
+                    <th style="text-align: center;" class="herrero-azul-text" ng-click="sort('fecha')">
                         Fecha
+                        <i ng-show="sortKey != 'fecha'" ng-hide="sortKey == 'fecha'" class="material-icons" style="vertical-align: middle !important; margin-top:-5px;">arrow_drop_up</i>
+                        <i ng-show="sortKey != 'fecha'" ng-hide="sortKey == 'fecha'" class="material-icons" style="vertical-align: middle !important; margin-left:-27.5px;margin-top:5px;">arrow_drop_down</i>
+                        <i ng-show="reverse && sortKey == 'fecha'" ng-hide="!reverse || sortKey != 'fecha'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_up</i>
+                        <i ng-show="!reverse && sortKey == 'fecha'" ng-hide="reverse || sortKey != 'fecha'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_down</i>                             
                     </th>
-                    <th style="text-align: center;" class="herrero-azul-text">
+                    <th style="text-align: center;" class="herrero-azul-text" ng-click="sort('idAdmin')">
                         Administrador
+                        <i ng-show="sortKey != 'idAdmin'" ng-hide="sortKey == 'idAdmin'" class="material-icons" style="vertical-align: middle !important; margin-top:-5px;">arrow_drop_up</i>
+                        <i ng-show="sortKey != 'idAdmin'" ng-hide="sortKey == 'idAdmin'" class="material-icons" style="vertical-align: middle !important; margin-left:-27.5px;margin-top:5px;">arrow_drop_down</i>
+                        <i ng-show="reverse && sortKey == 'idAdmin'" ng-hide="!reverse || sortKey != 'idAdmin'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_up</i>
+                        <i ng-show="!reverse && sortKey == 'idAdmin'" ng-hide="reverse || sortKey != 'idAdmin'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_down</i>                                                     
                     </th>
                     <th style="text-align: center;" class="herrero-azul-text">
                         Dirección
                     </th>
-                    <th style="text-align: center;" class="herrero-azul-text">
+                    <th style="text-align: center;" class="herrero-azul-text" ng-click="sort('numero')">
                         Número de factura
+                        <i ng-show="sortKey != 'numero'" ng-hide="sortKey == 'numero'" class="material-icons" style="vertical-align: middle !important; margin-top:-5px;">arrow_drop_up</i>
+                        <i ng-show="sortKey != 'numero'" ng-hide="sortKey == 'numero'" class="material-icons" style="vertical-align: middle !important; margin-left:-27.5px;margin-top:5px;">arrow_drop_down</i>
+                        <i ng-show="reverse && sortKey == 'numero'" ng-hide="!reverse || sortKey != 'numero'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_up</i>
+                        <i ng-show="!reverse && sortKey == 'numero'" ng-hide="reverse || sortKey != 'numero'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_down</i>                                                                             
                     </th>
-                    <th style="text-align: center;" class="herrero-azul-text">
+                    <th style="text-align: center;" class="herrero-azul-text" ng-click="sort('estado')">
                         Estado
+                        <i ng-show="sortKey != 'estado'" ng-hide="sortKey == 'estado'" class="material-icons" style="vertical-align: middle !important; margin-top:-5px;">arrow_drop_up</i>
+                        <i ng-show="sortKey != 'estado'" ng-hide="sortKey == 'estado'" class="material-icons" style="vertical-align: middle !important; margin-left:-27.5px;margin-top:5px;">arrow_drop_down</i>
+                        <i ng-show="reverse && sortKey == 'estado'" ng-hide="!reverse || sortKey != 'estado'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_up</i>
+                        <i ng-show="!reverse && sortKey == 'estado'" ng-hide="reverse || sortKey != 'estado'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_down</i>                                                                             
                     </th>
                     <th style="text-align: center;" class="herrero-azul-text">
                         Acciones
@@ -120,7 +136,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate-start="factura in facturas | filter:search | orderBy: 'numero'  | itemsPerPage: 10 track by $index" dir-paginate-end>
+                <tr dir-paginate-start="factura in facturas | filter:search | orderBy:sortKey:!reverse | itemsPerPage: 10 track by $index" dir-paginate-end>
                     <td style="text-align: center;width: 7%;">
                         {{factura.fecha}}
                     </td>

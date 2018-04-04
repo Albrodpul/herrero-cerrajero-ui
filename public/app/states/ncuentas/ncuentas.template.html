@@ -84,7 +84,7 @@
         <button class="btn waves-effect waves-light #f44336 red col s3" style="margin-left:2%;" ng-click="cancel()">
             <i class="material-icons" style="vertical-align: middle !important">close</i> Cancelar
         </button>
-        <button class="btn waves-effect waves-light #388e3c green darken-2 col s3 offset-s5" style="margin-right:-10%;" ng-click="addCuenta(administrador,direccion,iban,nif,check)">
+        <button class="btn waves-effect waves-light #388e3c green darken-2 col s3 offset-s5" style="margin-right:-10%;" ng-click="addCuenta(administrador,direccion,iban,nif,referenciaCheck1)">
             <i class="material-icons" style="vertical-align: middle !important">done</i> Añadir número
         </button>
     </div>
@@ -113,8 +113,12 @@
         <table class="table highlight bordered">
             <thead>
                 <tr>
-                    <th style="text-align: center;" class="herrero-azul-text">
+                    <th style="text-align: center;" class="herrero-azul-text" ng-click="sort('idAdmin')">
                         Administrador
+                        <i ng-show="sortKey != 'idAdmin'" ng-hide="sortKey == 'idAdmin'" class="material-icons" style="vertical-align: middle !important; margin-top:-5px;">arrow_drop_up</i>
+                        <i ng-show="sortKey != 'idAdmin'" ng-hide="sortKey == 'idAdmin'" class="material-icons" style="vertical-align: middle !important; margin-left:-27.5px;margin-top:5px;">arrow_drop_down</i>
+                        <i ng-show="reverse && sortKey == 'idAdmin'" ng-hide="!reverse || sortKey != 'idAdmin'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_up</i>
+                        <i ng-show="!reverse && sortKey == 'idAdmin'" ng-hide="reverse || sortKey != 'idAdmin'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_down</i>     
                     </th>
                     <th style="text-align: center;" class="herrero-azul-text">
                         Dirección
@@ -125,16 +129,20 @@
                     <th style="text-align: center;" class="herrero-azul-text">
                         NIF
                     </th>
-                    <th style="text-align: center;" class="herrero-azul-text">
+                    <th style="text-align: center;" class="herrero-azul-text" ng-click="sortReferencia()">
                         Referencia
-                    </th>
+                        <i ng-show="sortKeyAux != 'referencia'" ng-hide="sortKeyAux == 'referencia'" class="material-icons" style="vertical-align: middle !important; margin-top:-5px;">arrow_drop_up</i>
+                        <i ng-show="sortKeyAux != 'referencia'" ng-hide="sortKeyAux == 'referencia'" class="material-icons" style="vertical-align: middle !important; margin-left:-27.5px;margin-top:5px;">arrow_drop_down</i>
+                        <i ng-show="reverse && sortKeyAux == 'referencia'" ng-hide="!reverse || sortKeyAux != 'referencia'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_up</i>
+                        <i ng-show="!reverse && sortKeyAux == 'referencia'" ng-hide="reverse || sortKeyAux != 'referencia'" class="material-icons" style="vertical-align: middle !important;">arrow_drop_down</i>                             
+                   </th>
                     <th style="text-align: center;" class="herrero-azul-text">
                         Acciones
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate-start="cuenta in cuentas | filter:search | orderBy: 'idAdmin'  | itemsPerPage: 10 track by $index" dir-paginate-end>
+                <tr dir-paginate-start="cuenta in cuentas | filter:search | orderBy:sortKey:reverse | itemsPerPage: 10 track by $index" dir-paginate-end>
                     <td style="text-align: center;width: 15%;">
                         {{cuenta.idAdmin}}
                     </td>

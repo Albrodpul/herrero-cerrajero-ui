@@ -28,6 +28,7 @@
         var refresh = function () {
             $scope.error = null;
             angular.element("input[id='text']").val(null);
+            $scope.sortKey = "fecha";
             facturasService.getFacturas()
                 .then(data => {
                     console.log("Refreshing...");
@@ -143,6 +144,11 @@
                         $scope.error = err.message;
                     });
             }
+        }
+
+        $scope.sort = function (keyname) {
+            $scope.sortKey = keyname; //set the sortKey to the param passed
+            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
         }
 
     }

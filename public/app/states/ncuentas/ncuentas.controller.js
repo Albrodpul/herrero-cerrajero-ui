@@ -30,6 +30,7 @@
       $scope.referenciaCheck1 = true;
       $scope.referenciaCheck2 = false;
       $scope.reference = "Con referencia";
+      $scope.sortKey = "idAdmin";
       angular.element("input[id='text']").val(null);
       nCuentasService.getCuentas()
         .then(data => {
@@ -200,6 +201,18 @@
             $scope.error = err.message;
           });
       }
+    }
+
+    $scope.sort = function (keyname) {
+      $scope.sortKey = keyname; //set the sortKey to the param passed
+      $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+      $scope.sortKeyAux = null;
+    }
+
+    $scope.sortReferencia = function (){
+      $scope.sortKey = null;
+      $scope.sortKeyAux = "referencia";
+      $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 
 
